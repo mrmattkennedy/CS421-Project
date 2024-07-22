@@ -1,6 +1,7 @@
 -- repl.it link: https://replit.com/join/viwsnnysqx-mdkennedy03
 import Control.Concurrent
 import Control.Concurrent.STM
+import Test.HUnit
 
 -- Define a type for a shared counter
 type Counter = TVar Int
@@ -37,8 +38,37 @@ newCounter initial = atomically $ newTVar initial
 -- Main function to demonstrate the composable transactions
 -- Concept: Transactions ensure that a series of memory operations occur atomically, i.e., they either complete entirely or have no effect at all.
 -- The atomic function is used to ensure that operations on TVars are performed atomically.
+-- Unit tests
 main :: IO ()
 main = do
+  -- Unit test for incrementCounter
+  testIncrementCounter <- runTestTT $ TestCase $ do
+    counter <- newCounter 0
+    atomically $ incrementCounter counter
+    finalValue <- atomically $ readTVar counter
+    assertEqual "Incrementing counter" 1 finalValue
+
+  -- Unit test for decrementCounter
+  testDecrementCounter <- runTestTT $ TestCase $ do
+    counter <- newCounter 1
+    atomically $ decrementCounter counter
+    finalValue <- atomically $ readTVar counter
+    assertEqual "Decrementing counter" 0 finalValue
+
+  -- Unit test for tryDecrementEither
+  testTryDecrementEither <- runTestTT $ TestCase $ do
+    counter1 <- newCounter 0
+    counter2 <- newCounter 1
+    atomically $ tryDecrementEither counter1 counter2
+    finalValue1 <- atomically $ readTVar counter1
+    finalValue2 <- atomically $ readTVar counter2
+    assertEqual "Try decrementing either counter1 or counter2 (counter1)" 0 finalValue1
+    assertEqual "Try decrementing either counter1 or counter2 (counter2)" 0 finalValue2
+
+  putStrLn "Unit tests completed."
+
+
+  -- Feature tests
   putStrLn "\n\n"
   -- Create two counters
   counter1 <- newCounter 5
@@ -70,3 +100,5 @@ main = do
   finalValue2 <- atomically $ readTVar counter2
   putStrLn $ "Final value of counter1: " ++ show finalValue1
   putStrLn $ "Final value of counter2: " ++ show finalValue2
+
+  putStrLn "Feature tests completed."

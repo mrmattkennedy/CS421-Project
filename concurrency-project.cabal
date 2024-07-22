@@ -69,7 +69,8 @@ executable chapter3
     -- Other library packages from which modules are imported.
     build-depends:    base ^>=4.17,
                       stm >=2.5 && <3.0,
-                      containers >=0.6 && <1.0
+                      containers >=0.6 && <1.0,
+                      HUnit
 
     -- Directories containing source files.
     hs-source-dirs:   app
@@ -93,7 +94,8 @@ executable chapter4
     -- Other library packages from which modules are imported.
     build-depends:    base ^>=4.17,
                       stm >=2.5 && <3.0,
-                      containers >=0.6 && <1.0
+                      containers >=0.6 && <1.0,
+                      HUnit
 
     -- Directories containing source files.
     hs-source-dirs:   app
@@ -117,7 +119,8 @@ executable chapter6
     -- Other library packages from which modules are imported.
     build-depends:    base ^>=4.17,
                       stm >=2.5 && <3.0,
-                      containers >=0.6 && <1.0
+                      containers >=0.6 && <1.0,
+                      HUnit
 
     -- Directories containing source files.
     hs-source-dirs:   app

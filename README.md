@@ -23,7 +23,6 @@ Both of these goals were accomplished - my findings can be found in both the att
 #### Implementation
 *A brief description of the important aspects of your implementation, in terms of (a) the major tasks or capabilities of your code; (b) components of the code; (c) status of the project -- what works well, what works partially, and and what is not implemented at all. You MUST compare these with your original proposed goals in the project proposal.*
 
-
 - (a) the major tasks or capabilities of your code: There are 3 parts of my code which break down the major implementation chapters from Harris et al. - the first part, `ch3.hs`, showcases the overall concepts that are foundational to the authors' solution. These concepts are transaction variable or `TVar`, `readTVar`, `writeTVar`, `retry`, `blocking`, and `orElse`. The second part, `ch4.hs`, dives more into using these `TVars` to build concurrent programming principles, such as mutable variables which are used to safely communicate between threads, as well as multicast channels where messages can be broadcasted to multiple readers. Lastly, in `ch6.hs`, I explore more of automatic conflict handling through STM, and nested transactions.
 
 - (b) components of the code: This can be seen by going through each file. There are many comments to help identify the components. I will briefly list the major components below.
@@ -41,5 +40,11 @@ Both of these goals were accomplished - my findings can be found in both the att
 #### Tests
 *Coming up with appropriate tests is one of the most important part of good software development. Your tests should include unit tests, feature tests, and larger test codes. Give a short description of the tests used, performance results if appropriate (e.g., memory consumption for garbage collection) etc. Be sure to explain how these tests exercise the concept(s) you've implemented.*
 
+The software provided for this project is meant to reflect concepts from the paper by Harris et al.; because of this, the scope of code is limited to solutions presented by the authors. In each file, there are brief unit tests to check functions defined to ensure functionality works as intended using atomically keywords and TVars are being properly managed with `readTVar` and `writeTVar`. Additionally, in `ch4.hs`, there are unit tests to check the `MVar` and `MChan` objects and their functionality, as well as in `ch6.hs` there are unit tests to check resource addition, consumption, and overall starvation.
+
+Once unit tests are done, there are functionality tests to showcase a brief example of concepts the authors have highlighted. These tests have helpful printouts and comments in order to explain what is being tested.
+
 #### Listing
 *A listing of your code. The code should be documented thoroughly and clearly. You don't need to comment every single line or even every single function. Instead, focus on the central functions and data structures in your implementation, and document them well.*
+
+There are comments throughout each `.hs` file explaining function intentions and concepts explored. Additionally, more is described in the above sections on the functionality of the code provided.

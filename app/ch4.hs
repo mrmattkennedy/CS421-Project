@@ -1,5 +1,6 @@
 import Control.Concurrent (forkIO, threadDelay) -- Specify to avoid conflicts with MVar
 import Control.Concurrent.STM
+import Test.HUnit
 
 -- Define MVar using TVar
 -- Concept: IMplementing MVars using TVars An MVar is a mutable variable that can be either empty or full, allowing safe communication between threads
@@ -62,11 +63,36 @@ readPort port = do
       writeTVar port Nothing -- Empty the port
       return v
 
+
+-- Unit Tests
+unitTests :: Test
+unitTests = TestList [
+    TestCase $ do
+      mv <- atomically newEmptyMVar
+      atomically $ putMVar mv "test"
+      result <- atomically $ takeMVar mv
+      assertEqual "putMVar and takeMVar" "test" result,
+
+    TestCase $ do
+      chan <- atomically newMChan
+      port1 <- atomically $ newPort chan
+      port2 <- atomically $ newPort chan
+      atomically $ writeMChan chan "test"
+      result1 <- atomically $ readPort port1
+      result2 <- atomically $ readPort port2
+      assertEqual "writeMChan and readPort (port1)" "test" result1
+      assertEqual "writeMChan and readPort (port2)" "test" result2
+  ]
+
 -- Main function to demonstrate the MVar and multicast channel
 -- Concept: The examples illustrate how STM enables composable and safe concurrent programming
 main :: IO ()
 main = do
-  putStrLn "\n\n"
+  putStrLn "\nRunning Unit Tests"
+  _ <- runTestTT unitTests
+  putStrLn "\nUnit Tests Completed\n"
+
+  putStrLn "Running Feature Tests\n"
 
   -- Demonstrate MVar
   mv <- atomically newEmptyMVar
@@ -105,3 +131,5 @@ main = do
 
   -- Wait for the multicast channel demonstration to complete
   threadDelay 1000000
+
+  putStrLn "Feature Tests Completed\n"
