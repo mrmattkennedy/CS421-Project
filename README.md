@@ -1,7 +1,7 @@
 ## CS421 Project Submission
 This is Matthew Kennedy's report submission for the CS421 final project. This repository includes the code used to exemplify the learnings from the paper [Composable Memory Transactions by Harris. et al](https://www.microsoft.com/en-us/research/wp-content/uploads/2005/01/2005-ppopp-composable.pdf).
 
-Related video: https://youtu.be/81NZ2-RTQHM
+Demo video of report and code: https://youtu.be/81NZ2-RTQHM
 
 ### Running code
 To run the 3 code files, simply clone this repository and run the below lines of code:
